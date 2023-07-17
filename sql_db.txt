@@ -1,0 +1,179 @@
+-- phpMyAdmin SQL Dump
+-- version 3.2.0.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 17-02-2011 a las 15:19:14
+-- Versión del servidor: 5.1.36
+-- Versión de PHP: 5.3.0
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Base de datos: `moodle`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `course` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `intro` text NOT NULL,
+  `comments` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `timeavailablefrom` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timeavailableto` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timeviewfrom` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timeviewto` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timecoment` int(10) NOT NULL,
+  `timerating` int(10) NOT NULL,
+  `requiredentries` int(8) unsigned NOT NULL DEFAULT '0',
+  `requiredcoment` int(8) NOT NULL,
+  `requiredrating` int(8) NOT NULL,
+  `requiredentriestoview` int(8) unsigned NOT NULL DEFAULT '0',
+  `maxentries` int(8) unsigned NOT NULL DEFAULT '0',
+  `rssarticles` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `singletemplate` text,
+  `listtemplate` text,
+  `listtemplateheader` text,
+  `listtemplatefooter` text,
+  `addtemplate` text,
+  `rsstemplate` text,
+  `rsstitletemplate` text,
+  `csstemplate` text,
+  `jstemplate` text,
+  `asearchtemplate` text,
+  `approval` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `scale` bigint(10) NOT NULL DEFAULT '0',
+  `assessed` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `defaultsort` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `defaultsortdir` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `editany` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `notification` bigint(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mdl_data_cou_ix` (`course`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Removed ratings column' AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data_comments` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `recordid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `content` text NOT NULL,
+  `format` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `created` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `modified` bigint(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `mdl_datacomm_rec_ix` (`recordid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='to comment data records' AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data_content`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data_content` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fieldid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `recordid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `content` longtext,
+  `content1` longtext,
+  `content2` longtext,
+  `content3` longtext,
+  `content4` longtext,
+  PRIMARY KEY (`id`),
+  KEY `mdl_datacont_rec_ix` (`recordid`),
+  KEY `mdl_datacont_fie_ix` (`fieldid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='the content introduced in each record/fields' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data_fields`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data_fields` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dataid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `type` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `param1` text,
+  `param2` text,
+  `param3` text,
+  `param4` text,
+  `param5` text,
+  `param6` text,
+  `param7` text,
+  `param8` text,
+  `param9` text,
+  `param10` text,
+  PRIMARY KEY (`id`),
+  KEY `mdl_datafiel_typdat_ix` (`type`,`dataid`),
+  KEY `mdl_datafiel_dat_ix` (`dataid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='every field available' AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data_ratings`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data_ratings` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `recordid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `rating` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `modified` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `created` bigint(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `mdl_datarati_rec_ix` (`recordid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to rate data records' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_data_records`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_data_records` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `groupid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `dataid` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timecreated` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `timemodified` bigint(10) unsigned NOT NULL DEFAULT '0',
+  `approved` smallint(4) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `mdl_datareco_dat_ix` (`dataid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='every record introduced' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mdl_motivador`
+--
+
+CREATE TABLE IF NOT EXISTS `mdl_motivador` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `actividad` int(10) NOT NULL,
+  `accion` varchar(60) NOT NULL,
+  `mensaje` text NOT NULL,
+  `usuario` int(10) NOT NULL,
+  `tipomensaje` int(4) NOT NULL,
+  `curso` int(10) NOT NULL,
+  `tipoactividad` int(4) NOT NULL,
+  `cantidad` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
